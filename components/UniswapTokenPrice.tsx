@@ -108,8 +108,8 @@ const UniswapTokenPrice = (props: any) => {
       console.log(poolExample.token0Price.toSignificant());
       const k = Number(state.sqrtPriceX96) ** 2 / 2 ** 192;
       const kk = 2 ** 192 / Number(state.sqrtPriceX96) ** 2;
-      setToken1Price(poolExample.token0Price.toString());
-      setToken2Price(poolExample.token1Price.toString());
+      setToken1Price(k.toString());
+      setToken2Price(kk.toString());
       console.log(k, kk);
     }
     main();
