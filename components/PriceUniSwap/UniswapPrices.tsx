@@ -1,18 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Contract, ethers } from "ethers";
-import { Pool } from "@uniswap/v3-sdk";
-import {
-  Currency,
-  CurrencyAmount,
-  Percent,
-  Token,
-  TradeType,
-} from "@uniswap/sdk-core";
-import { abi as IUniswapV3PoolABI } from "@uniswap/v3-core/artifacts/contracts/interfaces/IUniswapV3Pool.sol/IUniswapV3Pool.json";
-import { abi as IUniswapV3FactoryABI } from "@uniswap/v3-core/artifacts/contracts/interfaces/IUniswapV3Factory.sol/IUniswapV3Factory.json";
-import UniswapPoolPrice from "./UniswapPoolPrice";
-
-
+import React from "react";
+import UniswapPoolPrice from "./UniswapPool";
 
 const UniswapPrices = (props: any) => {
   const address: { [key: string]: String } = {
@@ -31,6 +18,10 @@ const UniswapPrices = (props: any) => {
 
   return (
     <div>
+      <div className="flex flex-row text-white bg-black">
+        <div className="mx-auto">Token0</div>
+        <div className="mx-auto">Token1</div>
+      </div>
       {Object.keys(address).map((x, y) => {
         return Object.keys(address).map((m, n) => {
           return (

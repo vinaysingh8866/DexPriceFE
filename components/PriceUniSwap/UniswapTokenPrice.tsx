@@ -3,6 +3,7 @@ import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import { abi as IUniswapV3PoolABI } from "@uniswap/v3-core/artifacts/contracts/interfaces/IUniswapV3Pool.sol/IUniswapV3Pool.json";
 import { Pool } from "@uniswap/v3-sdk";
+
 interface Immutables {
   factory: string;
   token0: string;
@@ -31,15 +32,21 @@ const UniswapTokenPrice = (props: any) => {
     props.provider
   );
   async function getPoolImmutables() {
-    const [factory, token0, token1, fee, tickSpacing, maxLiquidityPerTick] =
-      await Promise.all([
-        poolContract.factory(),
-        poolContract.token0(),
-        poolContract.token1(),
-        poolContract.fee(),
-        poolContract.tickSpacing(),
-        poolContract.maxLiquidityPerTick(),
-      ]);
+    const [
+      factory,
+      token0,
+      token1,
+      fee,
+      tickSpacing,
+      maxLiquidityPerTick,
+    ] = await Promise.all([
+      poolContract.factory(),
+      poolContract.token0(),
+      poolContract.token1(),
+      poolContract.fee(),
+      poolContract.tickSpacing(),
+      poolContract.maxLiquidityPerTick(),
+    ]);
 
     const immutables: Immutables = {
       factory,
@@ -106,21 +113,24 @@ const UniswapTokenPrice = (props: any) => {
       );
 
       console.log(poolExample.token0Price.toSignificant());
-      const k = Number(state.sqrtPriceX96) ** 2 / 2 ** 192;
-      const kk = 2 ** 192 / Number(state.sqrtPriceX96) ** 2;
-      setToken1Price(k.toString());
-      setToken2Price(kk.toString());
-      console.log(k, kk);
+      const token0PriceCal = Number(state.sqrtPriceX96) ** 2 / 2 ** 192;
+      const token1PriceCal = 2 ** 192 / Number(state.sqrtPriceX96) ** 2;
+      setToken1Price(token0PriceCal.toString());
+      setToken2Price(token1PriceCal.toString());
+      console.log(
+        poolExample.token0Price.toSignificant(),
+        poolExample.token1Price.toSignificant()
+      );
     }
     main();
   });
 
   return (
-    <div className="flex flex-column">
-      <div>
+    <div className="flex flex-row text-white bg-black">
+      <div className="mx-auto">
         {props.poolInfo.token1} {token2Price}
       </div>
-      <div>
+      <div className="mx-auto">
         {props.poolInfo.token2} {token1Price}
       </div>
     </div>

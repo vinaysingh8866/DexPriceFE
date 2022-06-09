@@ -80,7 +80,7 @@ function UniswapPoolPrice(props: any) {
   return (
     <div>
       {got ? (
-        <div>
+        <div className="my-10">
           <UniswapTokenPrice
             poolInfo={poolInfo}
             provider={props.provider}
